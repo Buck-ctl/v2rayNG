@@ -28,7 +28,6 @@ jobs:
       uses: android-actions/setup-android@v4
       with:
         log-accepted-android-sdk-licenses: false
-        cmdline-tools-version: '14742023'
         packages: 'platforms;android-34 build-tools;34.0.0 platform-tools'
 
     - name: Install NDK
@@ -105,3 +104,4 @@ jobs:
       with:
         name: universal-apk
         path: ${{ github.workspace }}/V2rayNG/app/build/outputs/apk/*/debug/*universal*.apk
+        
