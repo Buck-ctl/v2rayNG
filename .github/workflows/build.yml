@@ -38,6 +38,14 @@ jobs:
         echo "NDK_HOME=$ANDROID_HOME/ndk/30.0.16248370" >> $GITHUB_ENV
         sed -i 's/namespace = "com.v2ray.ang"/ndkVersion = "30.0.16248370"\n    namespace = "com.v2ray.ang"/' ${{ github.workspace }}/V2rayNG/app/build.gradle.kts
 
+    - name: Customize App Name and Version
+      run: |
+        # تغییر نام برنامه به saeetok
+        sed -i 's/<string name="app_name">V2rayNG<\/string>/<string name="app_name">saeetok<\/string>/' ${{ github.workspace }}/V2rayNG/app/src/main/res/values/strings.xml
+        
+        # تنظیم نسخه و شناسه دلخواه 543370K
+        sed -i 's/versionName = ".*"/versionName = "543370K"/' ${{ github.workspace }}/V2rayNG/app/build.gradle.kts
+
     - name: Restore cached libhevtun
       id: cache-libhevtun-restore
       uses: actions/cache/restore@v6
