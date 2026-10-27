@@ -36,7 +36,7 @@ jobs:
           --channel=0 \
           --install "ndk;30.0.16248370"
         echo "NDK_HOME=$ANDROID_HOME/ndk/30.0.16248370" >> $GITHUB_ENV
-        echo 'ndkVersion = "30.0.16248370"' >> ${{ github.workspace }}/V2rayNG/app/build.gradle.kts
+        sed -i 's/namespace = "com.v2ray.ang"/ndkVersion = "30.0.16248370"\n    namespace = "com.v2ray.ang"/' ${{ github.workspace }}/V2rayNG/app/build.gradle.kts
 
     - name: Restore cached libhevtun
       id: cache-libhevtun-restore
