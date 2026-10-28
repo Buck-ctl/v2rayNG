@@ -1,0 +1,49 @@
+name: Replace App Icon
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replace-icon:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Replace launcher icon
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+          ICON="icon.png"
+          RES="V2rayNG/app/src/main/res"
+
+          for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            case "$density" in
+              mdpi) size=48 ;;
+              hdpi) size=72 ;;
+              xhdpi) size=96 ;;
+              xxhdpi) size=144 ;;
+              xxxhdpi) size=192 ;;
+            esac
+
+            DIR="$RES/mipmap-$density"
+            if [ -d "$DIR" ]; then
+              convert "$ICON" \
+                -resize "${size}x${size}" \
+                "$DIR/ic_launcher.png"
+            fi
+          done
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || \
+            git commit -m "Replace launcher icon"
+          git push
