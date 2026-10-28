@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout code with submodules
       uses: actions/checkout@v4
       with:
-        submodules: 'recursive'
-        fetch-depth: '0'
+        submodules: recursive
+        fetch-depth: 0
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v4
@@ -39,9 +39,9 @@ jobs:
         chmod +x gradlew
         ./gradlew assembleDebug
 
-    - name: Upload universal APK
+    - name: Upload APK folder
       uses: actions/upload-artifact@v4
       with:
-        name: universal-apk
-        path: V2rayNG/app/build/outputs/apk/debug/v2rayng-*-universal-release.apk
+        name: v2rayng-debug-apks
+        path: V2rayNG/app/build/outputs/apk/debug/
         
