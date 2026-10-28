@@ -39,9 +39,9 @@ jobs:
         chmod +x gradlew
         ./gradlew assembleDebug
 
-    - name: Upload universal APK
+    - name: Upload APK folder
       uses: actions/upload-artifact@v4
       with:
-        name: universal-apk
-        path: V2rayNG/app/build/outputs/apk/debug/*universal*.apk
+        name: v2rayng-debug-apks
+        path: V2rayNG/app/build/outputs/apk/debug/
         
